@@ -25,7 +25,7 @@ function App() {
     const payLoad = { language: language, code };
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/run",
+        "http://localhost:8080/api/v1/run",
         payLoad
       );
       console.log(data);

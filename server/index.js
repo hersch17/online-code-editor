@@ -1,43 +1,29 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const {
-  generateFile,
-} = require("./generateFile");
-const { executeCpp } = require("./executeCpp");
-const { executePy } = require("./executePy");
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const mongoose = require("mongoose");
 
-app.post("/run", async (req, res) => {
-  const { language = "cpp", code } = req.body;
-  //console.log("language", req.body);
-  if (code === undefined) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Code is empty",
-    });
-  }
-  try {
-    const filePath = await generateFile(
-      language,
-      code
-    );
-    let output;
-    if (language === "cpp") {
-      output = await executeCpp(filePath);
-    } else if (language === "py") {
-      output = await executePy(filePath);
-    }
-    return res.status(200).json({
-      filePath,
-      output,
-    });
-  } catch (err) {
-    res.status(500).json({ err });
-  }
+const dotenv = require("dotenv").config();
+
+//dotenv.config({ path: "./config.env" });
+
+const app = require("./app");
+
+const DB = process.env.DB_URI;
+mongoose.connect(DB, {}).then((con) => {
+  //console.log(con.connections);
+  console.log("DB connection successful");
 });
-app.listen(8080, () => {
-  console.log("App is running on port 8080...");
+
+// const testTour = new Tour({
+//   name: 'The Kite Runner',
+//   price: 599,
+//   rating: 3.6,
+// });
+// testTour
+//   .save()
+//   .then((doc) => console.log(doc))
+//   .catch((err) => console.log('Error', err));
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
 });
+
+//test
