@@ -9,39 +9,143 @@ import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
 import { andromeda } from "@uiw/codemirror-theme-andromeda";
+import Editor from "@monaco-editor/react";
+import Output from "../Components/Output";
+import Status from "../Components/Status";
 
-const Editor = () => {
-  const [code, setCode] = useState(`print("hi")`);
-  const [language, setLanguage] = useState("py");
-  const [output, setOutput] = useState("");
+const CodeEditor = () => {
+  const [code, setCode] =
+    useState(`#include<stdio.h>
+int main()
+{
+  int n;
+  scanf("%d", &n);
+  printf("Hello world!!! %d", n);
+  return 0;
+}`);
+  const [language, setLanguage] = useState(71);
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState();
   const dict = {
-    "C++": "cpp",
-    Javascript: "js",
-    Python: "py",
+    "C/C++": 54,
+    Javascript: 93,
+    Python: 71,
   };
-  // useEffect(() => {
-  //   console.log("code: ", lang);
-  // }, [lang]);
+  // const runCode = async () => {
+  //   const payLoad = { language: language, code };
+  //   try {
+  //     const { data } = await axios.post(
+  //       "http://localhost:8080/api/v1/run",
+  //       payLoad
+  //     );
+  //     console.log(data);
+  //     setOutput(data.output);
+  //   } catch ({ response }) {
+  //     if (response) {
+  //       console.log(response);
+  //       const errMsg = response.data.err.stderr;
+  //       console.log(errMsg);
+  //       setOutput(errMsg);
+  //     } else {
+  //       window.alert(
+  //         "Error connecting to server"
+  //       );
+  //     }
+  //   }
+  // };
   const runCode = async () => {
-    const payLoad = { language: language, code };
+    //setProcessing(true);
+    const formData = {
+      language_id: language,
+      // encode source code in base64
+      source_code: btoa(code),
+      stdin: btoa(input),
+    };
+    const options = {
+      method: "POST",
+      // url: process.env.REACT_APP_RAPID_API_URL,
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: {
+        base64_encoded: "true",
+        fields: "*",
+      },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host":
+          "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key":
+          "92424d02f9msh583477408bb8f18p11cc1bjsne32099da0d43",
+      },
+      data: formData,
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log("res.data", response.data);
+        const token = response.data.token;
+        checkStatus(token);
+      })
+      .catch((err) => {
+        let error = err.response
+          ? err.response.data
+          : err;
+        //setProcessing(false);
+        console.log(error);
+      });
+  };
+  const checkStatus = async (token) => {
+    const options = {
+      method: "GET",
+      url:
+        "https://judge0-ce.p.rapidapi.com/submissions" +
+        "/" +
+        token,
+      params: {
+        base64_encoded: "true",
+        fields: "*",
+      },
+      headers: {
+        "X-RapidAPI-Host":
+          "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key":
+          "92424d02f9msh583477408bb8f18p11cc1bjsne32099da0d43",
+      },
+    };
     try {
-      const { data } = await axios.post(
-        "http://localhost:8080/api/v1/run",
-        payLoad
-      );
-      console.log(data);
-      setOutput(data.output);
-    } catch ({ response }) {
-      if (response) {
-        console.log(response);
-        const errMsg = response.data.err.stderr;
-        console.log(errMsg);
-        setOutput(errMsg);
+      let response = await axios.request(options);
+      let statusId = response.data.status?.id;
+
+      // Processed - we have a result
+      if (statusId === 1 || statusId === 2) {
+        // still processing
+        setTimeout(() => {
+          checkStatus(token);
+        }, 2000);
+        return;
       } else {
-        window.alert(
-          "Error connecting to server"
+        //setProcessing(false)
+        setOutput(response.data);
+        //showSuccessToast(`Compiled Successfully!`)
+        console.log(
+          "response.data",
+          response.data
         );
+        console.log(
+          "output",
+          atob(response.data.stdout)
+        );
+        console.log(
+          "error",
+          atob(response.data.stderr)
+        );
+        return;
       }
+    } catch (err) {
+      console.log("err", err);
+      //setProcessing(false);
+      //showErrorToast();
     }
   };
   const readFile = (file) => {
@@ -81,8 +185,8 @@ const Editor = () => {
                 setLanguage(dict[e.target.value]);
               }}
             >
+              <option>C/C++</option>
               <option>Python</option>
-              <option>C++</option>
               <option>Javascript</option>
             </select>
             <button
@@ -94,9 +198,7 @@ const Editor = () => {
           </div>
           <CodeMirror
             value={code}
-            height="300px"
             theme={andromeda}
-            maxHeight="300px"
             extensions={[
               javascript({ jsx: true }),
               python(),
@@ -104,36 +206,30 @@ const Editor = () => {
             ]}
             onChange={(value, viewUpdate) => {
               setCode(value);
-              //console.log(viewUpdate);
             }}
+            height="80vh"
           />
         </div>
         <div className="right">
+          <Output
+            stderr={output?.stderr}
+            stdout={output?.stdout}
+            status_id={output?.status_id}
+          />
           <div className="input">
-            <div className="code-header">
-              Input
-            </div>
-            <CodeMirror
-              theme={andromeda}
-              maxHeight="400px"
-              height="200px"
+            <h4 className="header">Input</h4>
+            <textarea
+              className="input-box"
+              onChange={(e) =>
+                setInput(e.target.value)
+              }
             />
           </div>
-          <div className="output">
-            <div className="code-header">
-              Output
-            </div>
-            <CodeMirror
-              theme={andromeda}
-              value={output}
-              maxHeight="400px"
-              height="200px"
-            />
-          </div>
+          <Status outputDetails={output} />
         </div>
       </div>
     </div>
   );
 };
 
-export default Editor;
+export default CodeEditor;

@@ -34,11 +34,11 @@ exports.createCode = async (req, res) => {
     const jobID = job["_id"];
     let output;
     job["startedAt"] = new Date();
-    if (language === "cpp") {
-      output = await executeCpp(filePath);
-    } else if (language === "py") {
-      output = await executePy(filePath);
-    }
+    // if (language === "cpp") {
+    //   output = await executeCpp(filePath);
+    // } else if (language === "py") {
+    //   output = await executePy(filePath);
+    // }
     job["completedAt"] = new Date();
     job["status"] = "complete";
     job["output"] = output;

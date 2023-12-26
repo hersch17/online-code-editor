@@ -1,11 +1,24 @@
 import "./App.css";
-import React, {
-  useEffect,
-  useState,
-} from "react";
-import Editor from "./Pages/Editor";
+import React from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import CodeEditor from "./Pages/Editor";
+import Home from "./Pages/Home";
 function App() {
-  return <Editor />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/run"
+          element={<CodeEditor />}
+        />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
