@@ -2,40 +2,28 @@ const mongoose = require("mongoose");
 
 const CodeSchema = mongoose.Schema({
   language: {
-    type: String,
-    required: true,
-    enum: ["cpp", "py"],
-  },
-  filePath: {
-    type: String,
+    type: Number,
     required: true,
   },
   code: {
     type: String,
     required: true,
   },
-  submittedAt: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  startedAt: {
-    type: Date,
-  },
-  completedAt: {
-    type: Date,
-  },
-  output: {
+  username: {
     type: String,
+    required: [true, "Every code has a username"],
   },
-  status: {
+  name: {
     type: String,
-    default: "pending",
-    enum: ["pending", "complete", "error"],
+    reuqired: [
+      true,
+      "Every code file has a name.",
+    ],
   },
-  // username: {
-  //   type: String,
-  //   required: [true, "Every code has a username"],
-  // },
 });
 
 const Code = mongoose.model("Code", CodeSchema);

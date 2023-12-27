@@ -1,4 +1,4 @@
-const langArray = [
+export const langArray = [
   { id: 43, name: "Plain Text" },
   { id: 44, name: "Executable" },
   { id: 45, name: "Assembly (NASM 2.14.02)" },

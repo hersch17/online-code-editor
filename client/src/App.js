@@ -6,7 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import CodeEditor from "./Pages/Editor";
-import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +16,15 @@ function App() {
           path="/run"
           element={<CodeEditor />}
         />
-        <Route path="/home" element={<Home />} />
+
+        <Route
+          path="/register"
+          element={<Signup />}
+        ></Route>
+        <Route
+          path="/login"
+          element={<Login />}
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

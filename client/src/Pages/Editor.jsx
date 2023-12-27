@@ -8,10 +8,14 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
-import { andromeda } from "@uiw/codemirror-theme-andromeda";
+// import { andromeda } from "@ ";
 import Editor from "@monaco-editor/react";
 import Output from "../Components/Output";
 import Status from "../Components/Status";
+import Topbar from "../Components/Topbar";
+import { langArray } from "../assets/lang.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const CodeEditor = () => {
   const [code, setCode] =
@@ -23,14 +27,16 @@ int main()
   printf("Hello world!!! %d", n);
   return 0;
 }`);
-  const [language, setLanguage] = useState(71);
+  const [language, setLanguage] = useState(
+    langArray[0].id
+  );
   const [input, setInput] = useState("");
   const [output, setOutput] = useState();
-  const dict = {
-    "C/C++": 54,
-    Javascript: 93,
-    Python: 71,
-  };
+  const [fileName, setFileName] =
+    useState("main");
+  // useEffect(() => {
+  //   console.log("code", fileName);
+  // }, [fileName]);
   // const runCode = async () => {
   //   const payLoad = { language: language, code };
   //   try {
@@ -55,6 +61,7 @@ int main()
   // };
   const runCode = async () => {
     //setProcessing(true);
+    setOutput();
     const formData = {
       language_id: language,
       // encode source code in base64
@@ -148,66 +155,81 @@ int main()
       //showErrorToast();
     }
   };
-  const readFile = (file) => {
-    //console.log(file);
-    const type = file.name.split(".")[1];
-    if (type !== "cpp" || type !== "py") {
-      window.alert("Unsupported file");
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-      setCode(reader.result);
+  const handleSave = async () => {
+    console.log("clicked...");
+    const data = {
+      language: language,
+      code: code,
+      username: "hrsh",
+      name: fileName,
     };
-    reader.onerror = () => {
-      window.alert("Error reading file");
-    };
+    await axios
+      .post(
+        "http://localhost:8080/api/v1/run",
+        data
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log("Axios", err));
   };
   return (
     <div className="container">
-      <div>
-        <input
-          type="file"
-          onChange={(e) =>
-            readFile(e.target.files[0])
-          }
-        />
-      </div>
+      <Topbar
+        setCode={setCode}
+        handleSave={handleSave}
+        setFileName={setFileName}
+        setLanguage={setLanguage}
+      />
       <div className="main">
         <div className="code-editor">
-          <label>Write your code here</label>
           <div className="code-header">
             <select
               className="lang-select"
               onChange={(e) => {
-                console.log(dict[e.target.value]);
-                setLanguage(dict[e.target.value]);
+                setLanguage(e.target.value * 1);
               }}
+              value={language}
             >
-              <option>C/C++</option>
-              <option>Python</option>
-              <option>Javascript</option>
+              {langArray.map((ele) => {
+                return (
+                  <option value={ele.id}>
+                    {ele.name}
+                  </option>
+                );
+              })}
             </select>
+            <div className="input-container">
+              <input
+                type="text"
+                className="custom-input"
+                value={fileName}
+                onChange={(e) => {
+                  setFileName(e.target.value);
+                }}
+              />
+            </div>
             <button
               className="run-btn"
               onClick={() => runCode()}
             >
-              Run
+              <FontAwesomeIcon
+                icon={faPlay}
+                size="xl"
+              />
             </button>
           </div>
           <CodeMirror
             value={code}
-            theme={andromeda}
+            //theme={andromeda}
             extensions={[
-              javascript({ jsx: true }),
-              python(),
-              cpp(),
+              // javascript({ jsx: true }),
+              // python(),
+              cpp({}),
             ]}
             onChange={(value, viewUpdate) => {
               setCode(value);
             }}
             height="80vh"
+            basicSetup={{ autocompletion: true }}
           />
         </div>
         <div className="right">
@@ -215,14 +237,18 @@ int main()
             stderr={output?.stderr}
             stdout={output?.stdout}
             status_id={output?.status_id}
+            compile_output={
+              output?.compile_output
+            }
           />
-          <div className="input">
-            <h4 className="header">Input</h4>
+          <div className="code-input">
+            {/* <h4 className="header">Input</h4> */}
             <textarea
-              className="input-box"
+              className="custom-code-input"
               onChange={(e) =>
                 setInput(e.target.value)
               }
+              placeholder="Input..."
             />
           </div>
           <Status outputDetails={output} />

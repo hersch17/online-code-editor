@@ -5,6 +5,7 @@ const Output = ({
   status_id,
   stdout,
   stderr,
+  compile_output,
 }) => {
   function decodeBase64(base64) {
     const text = atob(base64);
@@ -22,7 +23,7 @@ const Output = ({
       return (
         <pre
           style={{
-            color: "green",
+            color: "#39FF14",
             whiteSpace: "pre-wrap",
           }}
         >
@@ -40,7 +41,7 @@ const Output = ({
       //compilation error
       return (
         <pre style={{ color: "red" }}>
-          {decodeBase64(stdout)}
+          {decodeBase64(compile_output)}
         </pre>
       );
     }

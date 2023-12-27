@@ -4,12 +4,16 @@ const app = express();
 
 const connectDB = require("./db/connectDB.js");
 const codeRouter = require("./routers/codeRouter");
+const userRouter = require("./routers/userRouter.js");
+const morgan = require("morgan");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(morgan("tiny"));
 
 app.use("/api/v1/run", codeRouter);
+app.use("/api/v1/users", userRouter);
 
 module.exports = app;
 
