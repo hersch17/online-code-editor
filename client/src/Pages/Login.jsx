@@ -6,7 +6,13 @@ import {
   useNavigate,
   Link,
 } from "react-router-dom";
+import "../styles/login.css";
 import axios from "../api/axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -40,45 +46,57 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+    <div className="login-container">
+      <div className="login-box">
+        <h2>LOGIN</h2>
+        <form
+          onSubmit={handleSubmit}
+          className="login-form"
+        >
+          <div className="input-container">
             <label htmlFor="email">
-              <strong>Email</strong>
+              {/* <strong>Email</strong> */}
             </label>
+            <FontAwesomeIcon icon={faEnvelope} />
             <input
               type="text"
-              placeholder="Enter email"
+              placeholder="Email"
               autoComplete="off"
               name="email"
-              className="form-control rounded-0"
+              className="input-box"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
           </div>
-          <div className="mb-3">
+          <div className="input-container">
             <label htmlFor="email">
-              <strong>Password</strong>
+              {/* <strong>Password</strong> */}
             </label>
+            <FontAwesomeIcon icon={faLock} />
             <input
               type="password"
-              placeholder="Enter password"
+              placeholder="Password"
               name="password"
-              className="form-control rounded-0"
+              className="input-box"
               onChange={(e) => {
                 setPass(e.target.value);
               }}
             />
           </div>
-          <p>Don't have an account?</p>
+          <p
+            onClick={() => {
+              navigate("/register");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Don't have an account?
+          </p>
           <button
             type="submit"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+            className="submit-btn"
           >
-            Login
+            SUBMIT
           </button>
         </form>
       </div>
