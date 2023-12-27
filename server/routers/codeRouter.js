@@ -3,6 +3,7 @@ const {
   createCode,
   findCode,
   getAllCodes,
+  findUserCodes,
 } = require("../controllers/codeController");
 
 const router = express.Router();
@@ -12,5 +13,5 @@ router
   .post(createCode)
   .get(getAllCodes);
 router.route("/:id").get(findCode);
-
+router.route("/codes").post(findUserCodes);
 module.exports = router;

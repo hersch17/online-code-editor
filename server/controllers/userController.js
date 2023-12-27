@@ -1,4 +1,5 @@
 const User = require("../models/UserSchema");
+const jwt = require("jsonwebtoken");
 exports.createUser = async (req, res) => {
   await User.create(req.body)
     .then((user) => res.json(user))
@@ -18,7 +19,7 @@ exports.findUser = async (req, res) => {
             message: "User exists",
           });
         } else {
-          res.status(404).json({
+          res.status(401).json({
             status: "fail",
             message: "Incorrect password",
           });

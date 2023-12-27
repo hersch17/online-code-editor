@@ -3,6 +3,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import {
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
@@ -34,6 +38,8 @@ int main()
   const [output, setOutput] = useState();
   const [fileName, setFileName] =
     useState("main");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   // useEffect(() => {
   //   console.log("code", fileName);
   // }, [fileName]);
@@ -160,7 +166,7 @@ int main()
     const data = {
       language: language,
       code: code,
-      username: "hrsh",
+      email: email,
       name: fileName,
     };
     await axios
@@ -171,6 +177,16 @@ int main()
       .then((res) => console.log(res))
       .catch((err) => console.log("Axios", err));
   };
+
+  useEffect(() => {
+    const userEmail =
+      sessionStorage.getItem("user_email");
+    if (userEmail) {
+      setEmail(userEmail);
+    } else {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div className="container">
       <Topbar
@@ -178,6 +194,7 @@ int main()
         handleSave={handleSave}
         setFileName={setFileName}
         setLanguage={setLanguage}
+        email={email}
       />
       <div className="main">
         <div className="code-editor">

@@ -6,30 +6,33 @@ import {
   useNavigate,
   Link,
 } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log("email", email);
-    console.log("pass", pass);
-  }, [email, pass]);
+  // useEffect(() => {
+  //   console.log("email", email);
+  //   console.log("pass", pass);
+  // }, [email, pass]);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "http://localhost:8080/api/v1/users/login",
-        {
-          email: email,
-          password: pass,
-        }
-      )
+      .post("users/login", {
+        email: email,
+        password: pass,
+      })
       .then((result) => {
         console.log(result.data);
-        if (result.data.status === "success")
+        if (result.data.status === "success") {
+          console.log(result.data);
+          sessionStorage.setItem(
+            "user_email",
+            email
+          );
           navigate("/run");
+        }
       })
       .catch((err) =>
         console.log(err.response.data)

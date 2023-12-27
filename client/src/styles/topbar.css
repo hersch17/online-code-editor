@@ -11,13 +11,31 @@
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for a subtle effect */
     box-sizing: border-box;
   }
+  .outer {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+}
+.outer > * {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
   .navbar-container {
-    display: flex;
+    /* display: flex;
+    align-items: center;
+    position: relative; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5% 5% 80% 10%;
+    grid-template-rows: 100%;
+    /* place-content: center; */
     align-items: center;
   }
   .file-input-container {
     position: relative;
     display: inline-block;
+    /* display: grid;
+    grid-column: 1/2; */
   }
 
   .file-input {
@@ -52,6 +70,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .save-button-container{
+    display: grid;
+    place-content: center;
+    grid-column: 2/3;
+  }
   .save-button {
     background-color: #2ecc71; /* Button background color */
     color: #fff; /* Text color */
@@ -62,6 +85,7 @@
     font-size: 1rem; 
     display: flex;
     align-items: center;
+
   }
   
   .save-icon {
@@ -74,6 +98,15 @@
   }
 
   .react-select {
-    width: 40%;
+    display: grid;
+    width: 200px;
+    grid-column: 3/4;
+  }
+
+  .logout-icon-container{
+    display: grid;
+    place-content: center;
+    grid-column: 4/5;
+
   }
   

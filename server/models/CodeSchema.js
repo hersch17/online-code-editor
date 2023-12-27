@@ -13,13 +13,13 @@ const CodeSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  username: {
+  email: {
     type: String,
-    required: [true, "Every code has a username"],
+    required: [true, "Every code has a email"],
   },
   name: {
     type: String,
-    reuqired: [
+    required: [
       true,
       "Every code file has a name.",
     ],

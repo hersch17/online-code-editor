@@ -14,12 +14,8 @@ const dict = {
   71: "py",
 };
 exports.createCode = async (req, res) => {
-  const {
-    language,
-    code,
-    username,
-    name = "hrsh",
-  } = req.body;
+  const { language, code, name, email } =
+    req.body;
   //console.log(req.body);
   // if (code === undefined) {
   //   return res.status(400).json({
@@ -29,13 +25,13 @@ exports.createCode = async (req, res) => {
   // }
   let job;
   try {
-    console.log(language, code, username, name);
+    console.log(language, code, name, email);
 
     job = await Code.create({
       language,
       code,
-      username,
       name,
+      email,
     });
 
     const jobID = job["_id"];
@@ -70,6 +66,24 @@ exports.getAllCodes = async (req, res) => {
   let job;
   try {
     job = await Code.find({});
+    res.status(201).json({
+      status: "success",
+      job,
+    });
+  } catch (err) {
+    res.status(404).json({
+      err,
+      status: "fail",
+    });
+  }
+};
+exports.findUserCodes = async (req, res) => {
+  let job;
+  console.log(req.body);
+  try {
+    job = await Code.find({
+      email: req.body.email,
+    });
     res.status(201).json({
       status: "success",
       job,

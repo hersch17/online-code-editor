@@ -9,12 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFloppyDisk,
   faFolderOpen,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 const Topbar = ({
   setCode,
   handleSave,
   setFileName,
   setLanguage,
+  email,
 }) => {
   const [selectedFile, setSelectedFile] =
     useState();
@@ -38,7 +41,10 @@ const Topbar = ({
   };
   const getAllCodes = async () => {
     return await axios
-      .get("http://localhost:8080/api/v1/run")
+      .post(
+        "http://localhost:8080/api/v1/run/codes",
+        { email: email }
+      )
       .then((res) => {
         const result = res.data.job;
         console.log(result);
@@ -50,6 +56,11 @@ const Topbar = ({
     option: (styles) => {
       return { ...styles, color: "black" };
     },
+  };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    sessionStorage.removeItem("user_email");
+    navigate("/login");
   };
   return (
     <nav className="navbar">
@@ -72,17 +83,21 @@ const Topbar = ({
             />
           </label>
         </div>
-        <button
-          className="save-button"
-          onClick={() => handleSave()}
-        >
-          {/* <span className="save-icon">💾</span> */}
-          <FontAwesomeIcon icon={faFloppyDisk} />
-          {/* Save */}
-        </button>
+        <div className="save-button-container">
+          <button
+            className="save-button"
+            onClick={() => handleSave()}
+          >
+            {/* <span className="save-icon">💾</span> */}
+            <FontAwesomeIcon
+              icon={faFloppyDisk}
+            />
+            {/* Save */}
+          </button>
+        </div>
         <div className="react-select">
           <Async
-            cacheOptions
+            // cacheOptions
             loadOptions={getAllCodes}
             onChange={(e) => {
               setSelectedFile(e._id);
@@ -95,6 +110,18 @@ const Topbar = ({
             isSearchable={true}
             styles={customStyle}
             //onChange={(e)=>{console.log((e))}}
+          />
+        </div>
+        <div
+          className="logout-icon-container"
+          onClick={() => {
+            handleLogout();
+          }}
+        >
+          <FontAwesomeIcon
+            className="logout-icon"
+            icon={faRightFromBracket}
+            size="xl"
           />
         </div>
       </div>
