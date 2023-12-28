@@ -263,7 +263,7 @@ int main()
               height="80vh"
               width="100%"
               defaultLanguage="javascript"
-              language="javascript"
+              language="cpp"
               defaultValue="// some comment"
               theme="vs-dark"
               onChange={handleEditorChange}

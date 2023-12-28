@@ -21,23 +21,33 @@ const Topbar = ({
 }) => {
   const [selectedFile, setSelectedFile] =
     useState();
-  useEffect(() => {
-    console.log("file", selectedFile);
-  }, [selectedFile]);
+  // useEffect(() => {
+  //   console.log("file", selectedFile);
+  // }, [selectedFile]);
   const readFile = (file) => {
-    //const type = file.name.split(".")[1];
-    // if (type !== "cpp" || type !== "py") {
-    //   window.alert("Unsupported file");
-    //   return;
-    // }
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-      setCode(reader.result);
-    };
-    reader.onerror = () => {
-      window.alert("Error reading file");
-    };
+    const inputFileName =
+      file?.name?.split(".")[0];
+    const type = file?.name?.split(".")[1];
+    console.log(type);
+    if (
+      type === "cpp" ||
+      type === "py" ||
+      type === "c"
+    ) {
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        setCode(reader.result);
+        setFileName(inputFileName);
+        if (type === "py") setLanguage(92);
+        else if (type === "js") setLanguage(93);
+        else if (type === "cpp") setLanguage(54);
+        else if (type === "c") setLanguage(50);
+      };
+      reader.onerror = () => {
+        window.alert("Error reading file");
+      };
+    } else window.alert("Unsupported file");
   };
   const getAllCodes = async () => {
     return await axios
