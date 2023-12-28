@@ -30,9 +30,9 @@ const Login = () => {
         password: pass,
       })
       .then((result) => {
-        console.log(result.data);
-        if (result.data.status === "success") {
-          console.log(result.data);
+        console.log(result?.data);
+        if (result?.data?.status === "success") {
+          console.log(result?.data);
           sessionStorage.setItem(
             "user_email",
             email

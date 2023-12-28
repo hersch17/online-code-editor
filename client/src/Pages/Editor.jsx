@@ -2,16 +2,17 @@ import "../styles/editor.css";
 import React, {
   useEffect,
   useState,
+  useRef,
 } from "react";
 import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
 import axios from "axios";
-import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
-import { python } from "@codemirror/lang-python";
-import { cpp } from "@codemirror/lang-cpp";
+// import CodeMirror from "@uiw/react-codemirror";
+// import { javascript } from "@codemirror/lang-javascript";
+// import { python } from "@codemirror/lang-python";
+// import { cpp } from "@codemirror/lang-cpp";
 // import { andromeda } from "@ ";
 import Editor from "@monaco-editor/react";
 import Output from "../Components/Output";
@@ -186,6 +187,14 @@ int main()
       navigate("/login");
     }
   }, []);
+  function handleEditorChange(value, event) {
+    setCode(value);
+  }
+  const editorRef = useRef(null);
+
+  function handleEditorDidMount(editor, monaco) {
+    editorRef.current = editor;
+  }
   return (
     <div className="container">
       <Topbar
@@ -234,7 +243,7 @@ int main()
               />
             </div>
           </div>
-          <CodeMirror
+          {/* <CodeMirror
             value={code}
             //theme={andromeda}
             extensions={[
@@ -248,7 +257,21 @@ int main()
             height="80vh"
             basicSetup={{ autocompletion: true }}
             className="CodeMirror"
-          />
+          /> */}
+          <div className="editor-container">
+            <Editor
+              height="80vh"
+              width="100%"
+              defaultLanguage="javascript"
+              language="javascript"
+              defaultValue="// some comment"
+              theme="vs-dark"
+              onChange={handleEditorChange}
+              onMount={handleEditorDidMount}
+              path="script.py"
+              value={code}
+            />
+          </div>
         </div>
         <div className="right">
           <Output
