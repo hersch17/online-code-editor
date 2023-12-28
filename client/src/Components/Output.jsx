@@ -6,6 +6,7 @@ const Output = ({
   stdout,
   stderr,
   compile_output,
+  message,
 }) => {
   function decodeBase64(base64) {
     const text = atob(base64);
@@ -34,7 +35,9 @@ const Output = ({
       //run-time error
       return (
         <pre style={{ color: "red" }}>
-          {decodeBase64(stderr)}
+          {stdout
+            ? decodeBase64(stdout)
+            : decodeBase64(message)}
         </pre>
       );
     } else if (status_id === 6) {

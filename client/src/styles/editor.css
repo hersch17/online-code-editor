@@ -2,22 +2,28 @@
     margin: 0;
     padding: 0;
   }
+  body{
+margin: 0;
+padding: 0;
+  }
   .container{
-    height: 100vh;
-    width: 100%;
-    /* background-color: black; */
+    height: 100dvh;
     background-color: #fffbf5;
     padding: 0rem 0.5rem 1rem 0rem;
     font-family: 'Poppins';
+    box-sizing: border-box;
+    overflow-y: hidden;
   }
   
   .main{
-    margin: 0;
+    padding-top: 4rem;
     display: grid;
-    height: 100vh;
+    height: 100dvh;
     grid-template-columns: 65% 30%;
     grid-template-rows: auto; 
-    column-gap: 2rem;
+    column-gap: 1rem;
+    overflow-y: hidden;
+    z-index: -1;
   }
   .code-editor{
     grid-column: 1/2;
@@ -26,23 +32,49 @@
     padding: 0rem 0 0rem 0.5rem;
     /* border: 3px solid #7743DB; */
   }
+  .CodeMirror , .CodeMirror pre{
+    z-index: -1; /*Change this to 0*/
+  }
   .code-header{
     height: 35px;
-    /* background-color:  #C3ACD0; */
-    /* background-color: orange; */
+    width: 100%;
     background-color: #C3ACD0;
     border-radius: 5px 5px 0 0;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0px 1.5rem 0px 1.5rem;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
+    align-items: center;
+    /* padding: 0px 1.5rem 0px 1.5rem; */
+  }
+  .lang-select{
+    border: none;
+    grid-column: 2/30;
+    font-size: 15px;
+    border-radius: 5px;
+    height: 70%;
+  }
+  .input-container {
+    grid-column: 35/80;
+    height: 70%;
+    
+  }
+  .custom-input {
+    height: 100%;
+    padding-left: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    justify-self: center;
+    width: 100%;
+
   }
   .run-btn{
-    background: none;
-    border: none;
-    outline: none;
-    box-shadow: none;
     cursor: pointer;
+    grid-column: 99/100;
   }
   
   .right{
@@ -51,7 +83,7 @@
     max-width: 100%;
     grid-template-rows: 40% 15% 20%;
     box-sizing: border-box;
-    padding-top: 2rem;
+    /* padding-top: 2rem; */
   }
   .code-input {
     margin-top: 0.75rem;
@@ -75,22 +107,17 @@
   padding: 1rem;
   box-sizing: border-box;
 }
-.input-container {
-  display: flex;
-  align-items: center;
-  
-}
 
-.custom-input {
-  width: 100%;
-  padding-left: 6px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.3s ease-in-out;
-}
 
 .custom-input:focus {
   border-color: #3498db;
+}
+@media only screen and (max-width: 600px) {
+  .main{
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      align-items: center;
+      width: 100%;
+  }
 }

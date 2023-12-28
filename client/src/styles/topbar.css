@@ -1,8 +1,8 @@
 .navbar {
-    /* //position: fixed; */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100dvw;
     min-height: 40px;
     /* background-color: #3498db;  */
     background-color: #7743DB; /* Navbar background color */
@@ -26,16 +26,17 @@
     position: relative; */
     width: 100%;
     display: grid;
-    grid-template-columns: 5% 5% 80% 10%;
+    /* grid-template-columns: 5% 5% 80% 10%; */
+    grid-template-columns: repeat(100, 1fr);
     grid-template-rows: 100%;
     /* place-content: center; */
     align-items: center;
+    z-index: 100;
   }
   .file-input-container {
     position: relative;
     display: inline-block;
-    /* display: grid;
-    grid-column: 1/2; */
+    grid-column: 1/2; 
   }
 
   .file-input {
@@ -99,14 +100,19 @@
 
   .react-select {
     display: grid;
-    width: 200px;
-    grid-column: 3/4;
+    /* width: 200px; */
+    grid-column: 21/81;
   }
 
   .logout-icon-container{
     display: grid;
     place-content: center;
-    grid-column: 4/5;
+    grid-column: 99/100;
 
+  }
+  @media only screen and (max-width: 600px) {
+    .react-select{
+        grid-column: 8/95;
+    }
   }
   

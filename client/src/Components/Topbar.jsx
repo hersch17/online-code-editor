@@ -109,6 +109,7 @@ const Topbar = ({
             getOptionLabel={(e) => e.name}
             isSearchable={true}
             styles={customStyle}
+            placeholder="Search..."
             //onChange={(e)=>{console.log((e))}}
           />
         </div>

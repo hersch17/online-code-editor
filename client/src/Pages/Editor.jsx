@@ -36,8 +36,7 @@ int main()
   );
   const [input, setInput] = useState("");
   const [output, setOutput] = useState();
-  const [fileName, setFileName] =
-    useState("main");
+  const [fileName, setFileName] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   // useEffect(() => {
@@ -222,9 +221,10 @@ int main()
                 onChange={(e) => {
                   setFileName(e.target.value);
                 }}
+                placeholder="Enter file name..."
               />
             </div>
-            <button
+            <div
               className="run-btn"
               onClick={() => runCode()}
             >
@@ -232,7 +232,7 @@ int main()
                 icon={faPlay}
                 size="xl"
               />
-            </button>
+            </div>
           </div>
           <CodeMirror
             value={code}
@@ -247,6 +247,7 @@ int main()
             }}
             height="80vh"
             basicSetup={{ autocompletion: true }}
+            className="CodeMirror"
           />
         </div>
         <div className="right">
@@ -257,6 +258,7 @@ int main()
             compile_output={
               output?.compile_output
             }
+            message={output?.message}
           />
           <div className="code-input">
             {/* <h4 className="header">Input</h4> */}

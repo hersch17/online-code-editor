@@ -23,3 +23,13 @@
     padding: 10px; /* Optional: Add padding for better spacing */
     border-radius: 8px;
 }
+@media only screen and (max-width: 600px) {
+    .text-highlight{
+        font-size:x-small;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .text-highlight{
+        font-size: small;
+    }
+}
