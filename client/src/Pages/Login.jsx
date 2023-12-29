@@ -1,11 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
-import {
-  useNavigate,
-  Link,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import axios from "../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +20,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("users/login", {
+      .post("/users/login", {
         email: email,
         password: pass,
       })

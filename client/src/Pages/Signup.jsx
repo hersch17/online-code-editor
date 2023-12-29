@@ -3,7 +3,7 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import "../styles/login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,15 +21,16 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "http://localhost:8080/api/v1/users",
-        { name, email, password: pass }
-      )
+      .post("/users/register", {
+        name,
+        email,
+        password: pass,
+      })
       .then((result) => {
         console.log(result);
         navigate("/login");
-        toast("Registered", {
-          className: "toast-theme",
+        toast("Registration successful", {
+          className: "my-theme",
         });
       })
       .catch((err) => console.log(err));

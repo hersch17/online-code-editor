@@ -183,7 +183,12 @@ int main()
     }
   };
   const handleSave = async () => {
-    //console.log("clicked...");
+    if (!fileName) {
+      toast("Enter file name", {
+        className: "my-theme",
+      });
+      return;
+    }
     const data = {
       language: language,
       code: code,
@@ -314,7 +319,7 @@ int main()
               {fileID ? (
                 <FontAwesomeIcon
                   icon={faTrash}
-                  size="lg"
+                  size="xl"
                   onClick={() =>
                     handleFileDelete()
                   }
