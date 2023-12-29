@@ -7,7 +7,7 @@ exports.createUser = async (req, res) => {
 
 exports.findUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req);
+  // console.log(req);
   console.log(email, password);
   await User.findOne({ email })
     .then((user) => {

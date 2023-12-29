@@ -7,13 +7,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* border: 1px solid green; */
+    grid-row: 1/2;
     
     box-sizing: border-box;
     padding: 0.5rem;
     background-color: #C3ACD0;
     border-radius: 1rem;
     /* max-width: 450px; */
+    max-height: 300px;
     padding-top: 0.05rem;
     
 }

@@ -87,7 +87,7 @@ padding: 0;
     grid-column: 2/3;
     width: 100%;
     max-width: 100%;
-    grid-template-rows: 40% 25% 20%;
+    grid-template-rows: 40% 17% 20%;
     box-sizing: border-box;
   }
   .code-input {
