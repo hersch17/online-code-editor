@@ -43,8 +43,9 @@
   .submit-btn{
     background-color: #A2CBF8;
     width: 80%;
-    height: 40%;
+    height: 60%;
     max-height: 40px;
+    min-height: 30px;
     border: none;
     color: white;
     text-transform: uppercase;
@@ -57,5 +58,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 60%;
+    height: 45%;
+  }
+  .signup-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65%;
+  }
+  .my-theme{
+    color: black;
+    background-color: white;
+    opacity: 0.7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Poppins', sans-serif;
   }

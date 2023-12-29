@@ -12,15 +12,15 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import toast from "react-simple-toasts";
 const Topbar = ({
   setCode,
   handleSave,
   setFileName,
   setLanguage,
   email,
+  setFileID,
 }) => {
-  const [selectedFile, setSelectedFile] =
-    useState();
   // useEffect(() => {
   //   console.log("file", selectedFile);
   // }, [selectedFile]);
@@ -70,6 +70,9 @@ const Topbar = ({
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.removeItem("user_email");
+    toast("Logged out", {
+      className: "my-theme",
+    });
     navigate("/login");
   };
   return (
@@ -110,7 +113,7 @@ const Topbar = ({
             // cacheOptions
             loadOptions={getAllCodes}
             onChange={(e) => {
-              setSelectedFile(e._id);
+              setFileID(e._id);
               setFileName(e.name);
               setCode(e.code);
               setLanguage(e.language);

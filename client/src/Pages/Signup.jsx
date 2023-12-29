@@ -11,6 +11,7 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-simple-toasts";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -27,6 +28,9 @@ const Signup = () => {
       .then((result) => {
         console.log(result);
         navigate("/login");
+        toast("Registered", {
+          className: "toast-theme",
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -40,7 +44,7 @@ const Signup = () => {
         <h2>REGISTER</h2>
         <form
           onSubmit={handleSubmit}
-          className="login-form"
+          className="signup-form"
         >
           <div className="input-container">
             <label htmlFor="email"></label>

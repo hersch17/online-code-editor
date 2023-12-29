@@ -20,7 +20,11 @@ import Status from "../Components/Status";
 import Topbar from "../Components/Topbar";
 import { langArray } from "../assets/lang.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import toast from "react-simple-toasts";
 
 const CodeEditor = () => {
   const [code, setCode] =
@@ -39,7 +43,13 @@ int main()
   const [output, setOutput] = useState();
   const [fileName, setFileName] = useState("");
   const [email, setEmail] = useState("");
+  const [fileID, setFileID] = useState();
+  const [editorLanguage, setEditorLanguage] =
+    useState("cpp");
+  const [processing, setProcessing] =
+    useState(false);
   const navigate = useNavigate();
+
   // useEffect(() => {
   //   console.log("code", fileName);
   // }, [fileName]);
@@ -66,7 +76,12 @@ int main()
   //   }
   // };
   const runCode = async () => {
-    //setProcessing(true);
+    setProcessing(true);
+    toast("Processing", {
+      loading: true,
+      className: "my-theme",
+      duration: 2500,
+    });
     setOutput();
     const formData = {
       language_id: language,
@@ -104,8 +119,11 @@ int main()
         let error = err.response
           ? err.response.data
           : err;
-        //setProcessing(false);
+        setProcessing(false);
         console.log(error);
+        toast(`Processing error`, {
+          className: "my-theme",
+        });
       });
   };
   const checkStatus = async (token) => {
@@ -130,17 +148,17 @@ int main()
       let response = await axios.request(options);
       let statusId = response.data.status?.id;
 
-      // Processed - we have a result
       if (statusId === 1 || statusId === 2) {
-        // still processing
         setTimeout(() => {
           checkStatus(token);
         }, 2000);
         return;
       } else {
-        //setProcessing(false)
+        setProcessing(false);
         setOutput(response.data);
-        //showSuccessToast(`Compiled Successfully!`)
+        toast(`Compiled Successfully!`, {
+          className: "my-theme",
+        });
         console.log(
           "response.data",
           response.data
@@ -158,11 +176,14 @@ int main()
     } catch (err) {
       console.log("err", err);
       //setProcessing(false);
-      //showErrorToast();
+
+      toast(`Processing error`, {
+        className: "my-theme",
+      });
     }
   };
   const handleSave = async () => {
-    console.log("clicked...");
+    //console.log("clicked...");
     const data = {
       language: language,
       code: code,
@@ -174,8 +195,43 @@ int main()
         "http://localhost:8080/api/v1/run",
         data
       )
-      .then((res) => console.log(res))
-      .catch((err) => console.log("Axios", err));
+      .then((res) => {
+        toast("File successfully saved", {
+          className: "my-theme",
+        });
+        setFileID(res?.data?.jobID);
+      })
+      .catch((err) => {
+        toast("Error connecting to server", {
+          className: "my-theme",
+        });
+        console.log("Axios", err);
+      });
+  };
+  const handleFileDelete = async () => {
+    console.log("delete reached...");
+    await axios
+      .delete(
+        "http://localhost:8080/api/v1/run/".concat(
+          fileID
+        ),
+        {}
+      )
+      .then((res) => {
+        toast("File successfully deleted", {
+          className: "my-theme",
+        });
+        setCode("");
+        setFileID("");
+        setFileName("");
+        setOutput("");
+      })
+      .catch((err) => {
+        toast("Error connecting to server", {
+          className: "my-theme",
+        });
+        console.log("Axios", err);
+      });
   };
 
   useEffect(() => {
@@ -187,6 +243,9 @@ int main()
       navigate("/login");
     }
   }, []);
+  // useEffect(() => {
+  //   console.log("file id", fileID);
+  // }, [fileID]);
   function handleEditorChange(value, event) {
     setCode(value);
   }
@@ -203,6 +262,7 @@ int main()
         setFileName={setFileName}
         setLanguage={setLanguage}
         email={email}
+        setFileID={setFileID}
       />
       <div className="main">
         <div className="code-editor">
@@ -210,13 +270,30 @@ int main()
             <select
               className="lang-select"
               onChange={(e) => {
-                setLanguage(e.target.value * 1);
+                let code = e.target.value * 1;
+                setLanguage(code);
+                if (code >= 48 && code <= 54)
+                  setEditorLanguage("cpp");
+                else if (
+                  code === 63 ||
+                  code === 93
+                )
+                  setEditorLanguage("javascript");
+                else if (
+                  code === 70 ||
+                  code === 71 ||
+                  code === 92
+                )
+                  setEditorLanguage("python");
               }}
               value={language}
             >
               {langArray.map((ele) => {
                 return (
-                  <option value={ele.id}>
+                  <option
+                    value={ele.id}
+                    key={ele.name}
+                  >
                     {ele.name}
                   </option>
                 );
@@ -232,6 +309,17 @@ int main()
                 }}
                 placeholder="Enter file name..."
               />
+            </div>
+            <div className="delete-btn">
+              {fileID ? (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  size="lg"
+                  onClick={() =>
+                    handleFileDelete()
+                  }
+                />
+              ) : null}
             </div>
             <div
               className="run-btn"
@@ -263,12 +351,10 @@ int main()
               height="80vh"
               width="100%"
               defaultLanguage="javascript"
-              language="cpp"
-              defaultValue="// some comment"
+              language={editorLanguage}
               theme="vs-dark"
               onChange={handleEditorChange}
               onMount={handleEditorDidMount}
-              path="script.py"
               value={code}
             />
           </div>

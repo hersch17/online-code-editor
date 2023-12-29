@@ -13,6 +13,7 @@ import {
   faEnvelope,
   faLock,
 } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-simple-toasts";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -30,9 +31,8 @@ const Login = () => {
         password: pass,
       })
       .then((result) => {
-        console.log(result?.data);
-        if (result?.data?.status === "success") {
-          console.log(result?.data);
+        console.log(result);
+        if (result.data.status === "success") {
           sessionStorage.setItem(
             "user_email",
             email
@@ -40,9 +40,11 @@ const Login = () => {
           navigate("/run");
         }
       })
-      .catch((err) =>
-        console.log(err.response.data)
-      );
+      .catch((err) => {
+        toast(err.response.data.message, {
+          className: "my-theme",
+        });
+      });
   };
 
   return (

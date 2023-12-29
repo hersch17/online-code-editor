@@ -95,6 +95,15 @@ exports.findUserCodes = async (req, res) => {
     });
   }
 };
+exports.deleteCode = async (req, res) => {
+  const tour = await Code.findByIdAndDelete(
+    req.params.id
+  );
+  res.status(204).json({
+    status: "success",
+    data: tour,
+  });
+};
 
 // exports.createCode = async (req, res) => {
 //   const { language = "cpp", code } = req.body;
