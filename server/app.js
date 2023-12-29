@@ -7,15 +7,14 @@ const codeRouter = require("./routers/codeRouter");
 const userRouter = require("./routers/userRouter.js");
 const morgan = require("morgan");
 
-app.use(
-  cors({
-    origin: [
-      "https://online-code-editor-q2je.vercel.app/",
-    ],
-    methods: ["POST", "GET", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
+// cors({
+//   origin: [
+//     "https://online-code-editor-q2je.vercel.app/",
+//   ],
+//   methods: ["POST", "GET", "DELETE"],
+//   credentials: true,
+// })
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("tiny"));
