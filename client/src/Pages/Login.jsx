@@ -35,9 +35,10 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        toast(err.response.data.message, {
-          className: "my-theme",
-        });
+        console.log(err);
+        // toast(err.response.data.message, {
+        //   className: "my-theme",
+        // });
       });
   };
 
