@@ -10,8 +10,7 @@ const morgan = require("morgan");
 app.use(
   cors({
     origin: [
-      "https://online-code-editor-omega.vercel.app",
-      "http://localhost:3000",
+      "https://online-code-editor-q2je.vercel.app",
     ],
     methods: ["POST", "GET", "DELETE"],
     credentials: true,

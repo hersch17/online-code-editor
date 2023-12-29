@@ -8,7 +8,7 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios.js";
 // import CodeMirror from "@uiw/react-codemirror";
 // import { javascript } from "@codemirror/lang-javascript";
 // import { python } from "@codemirror/lang-python";
@@ -31,9 +31,7 @@ const CodeEditor = () => {
     useState(`#include<stdio.h>
 int main()
 {
-  int n;
-  scanf("%d", &n);
-  printf("Hello world!!! %d", n);
+  printf("Hello world!);
   return 0;
 }`);
   const [language, setLanguage] = useState(
@@ -91,8 +89,7 @@ int main()
     };
     const options = {
       method: "POST",
-      // url: process.env.REACT_APP_RAPID_API_URL,
-      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      url: process.env.REACT_APP_RAPID_API_URL,
       params: {
         base64_encoded: "true",
         fields: "*",
@@ -101,9 +98,9 @@ int main()
         "content-type": "application/json",
         "Content-Type": "application/json",
         "X-RapidAPI-Host":
-          "judge0-ce.p.rapidapi.com",
+          process.env.REACT_APP_RAPID_API_HOST,
         "X-RapidAPI-Key":
-          "92424d02f9msh583477408bb8f18p11cc1bjsne32099da0d43",
+          process.env.REACT_APP_RAPID_API_KEY,
       },
       data: formData,
     };
@@ -130,7 +127,7 @@ int main()
     const options = {
       method: "GET",
       url:
-        "https://judge0-ce.p.rapidapi.com/submissions" +
+        process.env.REACT_APP_RAPID_API_URL +
         "/" +
         token,
       params: {
@@ -139,9 +136,9 @@ int main()
       },
       headers: {
         "X-RapidAPI-Host":
-          "judge0-ce.p.rapidapi.com",
+          process.env.REACT_APP_RAPID_API_HOST,
         "X-RapidAPI-Key":
-          "92424d02f9msh583477408bb8f18p11cc1bjsne32099da0d43",
+          process.env.REACT_APP_RAPID_API_KEY,
       },
     };
     try {
@@ -196,10 +193,7 @@ int main()
       name: fileName,
     };
     await axios
-      .post(
-        "http://localhost:8080/api/v1/run",
-        data
-      )
+      .post("/run", data)
       .then((res) => {
         toast("File successfully saved", {
           className: "my-theme",
@@ -216,12 +210,7 @@ int main()
   const handleFileDelete = async () => {
     console.log("delete reached...");
     await axios
-      .delete(
-        "http://localhost:8080/api/v1/run/".concat(
-          fileID
-        ),
-        {}
-      )
+      .delete("/run/".concat(fileID), {})
       .then((res) => {
         toast("File successfully deleted", {
           className: "my-theme",
