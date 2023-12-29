@@ -1,13 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
-const connectDB = require("./db/connectDB.js");
 const codeRouter = require("./routers/codeRouter");
 const userRouter = require("./routers/userRouter.js");
 const morgan = require("morgan");
 
 app.use(cors());
+app.options("*", cors());
 // cors({
 //   origin: [
 //     "https://online-code-editor-q2je.vercel.app/",
