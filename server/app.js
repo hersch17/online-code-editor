@@ -11,6 +11,7 @@ app.use(
   cors({
     origin: [
       "https://online-code-editor-omega.vercel.app",
+      "http://localhost:3000",
     ],
     methods: ["POST", "GET", "DELETE"],
     credentials: true,
