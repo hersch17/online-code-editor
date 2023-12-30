@@ -1,0 +1,77 @@
+.input-box {
+    background-color: white;
+    border: none;
+     /* You can change the color to your preference */
+    padding: 8px; /* Adjust padding as needed */
+    outline: none; /* Remove default focus outline */
+    /* Add a smooth transition effect */
+  }
+  
+  /* Add a style for the input when it is focused */
+  .input-box:focus {
+    /* Change the color for the focused state */
+  }
+  .input-container{
+    border-bottom: 2px solid #ccc;
+    transition: border-bottom-color 0.3s ease; 
+    width: 100%;
+    /* border: 1px solid red; */
+  }
+  .input-container:focus{
+    border-bottom-color: #333; 
+  }
+  .login-container{
+    background-color: #B3CDFB;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins';
+  }
+  .login-box{
+    background-color: white;
+    width: 20%;
+    height: 50%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .submit-btn{
+    background-color: #A2CBF8;
+    width: 80%;
+    height: 60%;
+    max-height: 40px;
+    min-height: 30px;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: large;
+    margin-top: 2rem;
+    cursor: pointer;
+  }
+  .login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 45%;
+  }
+  .signup-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65%;
+  }
+  .my-theme{
+    color: black;
+    background-color: white;
+    opacity: 0.7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+  }

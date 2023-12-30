@@ -1,0 +1,128 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    min-height: 40px;
+    /* background-color: #3498db;  */
+    background-color: #7743DB; /* Navbar background color */
+    color: #fff;
+    padding: 5px 10px; /* Adjust padding as needed */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for a subtle effect */
+    box-sizing: border-box;
+    z-index: 40;
+  }
+  .outer {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+}
+.outer > * {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+  .navbar-container {
+    /* display: flex;
+    align-items: center;
+    position: relative; */
+    width: 100%;
+    display: grid;
+    /* grid-template-columns: 5% 5% 80% 10%; */
+    grid-template-columns: repeat(100, 1fr);
+    grid-template-rows: 100%;
+    /* place-content: center; */
+    align-items: center;
+    z-index: 100;
+  }
+  .file-input-container {
+    position: relative;
+    display: inline-block;
+    grid-column: 1/2; 
+  }
+
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .file-icon-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 6px; /* Border radius for rounded corners */
+    background-color: #ecf0f1; /* Background color */
+    color: #333; /* Text color */
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+  }
+
+  .file-icon {
+    margin-right: 8px;
+  }
+
+  .file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .save-button-container{
+    display: grid;
+    place-content: center;
+    grid-column: 2/3;
+  }
+  .save-button {
+    background-color: #2ecc71; /* Button background color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 4px; /* Border radius for rounded corners */
+    cursor: pointer;
+    font-size: 1rem; 
+    display: flex;
+    align-items: center;
+
+  }
+  
+  .save-icon {
+    margin-right: 8px;
+  }
+  
+  /* Hover effect */
+  .save-button:hover {
+    background-color: #27ae60; /* Change background color on hover */
+  }
+
+  .react-select {
+    display: grid;
+    /* width: 200px; */
+    grid-column: 21/81;
+  }
+
+  .logout-icon-container{
+    display: grid;
+    place-content: center;
+    grid-column: 99/100;
+    cursor: pointer;
+
+  }
+  .my-theme{
+    color: black;
+    background-color: white;
+    opacity: 0.7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  @media only screen and (max-width: 600px) {
+    .react-select{
+        grid-column: 8/95;
+    }
+  }
+  

@@ -1,0 +1,35 @@
+.status-box{
+    margin-top: 0.75rem;
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border: 0.4rem solid #C3ACD0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 1rem;
+}
+
+.parameter{
+    margin-top: 1.5rem;
+}
+.parameter:first-child{
+    margin-top: 0;
+}
+.text-highlight{
+    background-color: #f2f2f2; /* Grey background color */
+    font-weight: bold; /* Bold font */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    border-radius: 8px;
+}
+@media only screen and (max-width: 600px) {
+    .text-highlight{
+        font-size:x-small;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .text-highlight{
+        font-size: small;
+    }
+}
