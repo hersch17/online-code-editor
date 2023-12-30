@@ -1,13 +1,4 @@
 const Code = require("../models/CodeSchema");
-const {
-  generateFile,
-} = require("../utils/generateFile");
-const {
-  executeCpp,
-} = require("../utils/executeCpp");
-const {
-  executePy,
-} = require("../utils/executePy");
 const dict = {
   54: "cpp",
   93: "js",
