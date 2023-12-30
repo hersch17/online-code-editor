@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const dotenv = require("dotenv").config();
 
-const app = require("./app");
+const app = require("../app.js");
 
 const DB = process.env.DB_URI;
 mongoose.connect(DB, {}).then((con) => {
