@@ -78,8 +78,8 @@ const Topbar = ({
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div class="file-input-container">
-          <label class="file-icon-container">
+        <div className="file-input-container">
+          <label className="file-icon-container">
             {/* <span class="file-icon">📂</span> */}
             {/* <span class="file-name">
               Select a file

@@ -27,14 +27,14 @@ const Signup = () => {
         password: pass,
       })
       .then((result) => {
-        console.log(result);
+        //console.log(result);
         navigate("/login");
         toast("Registration successful", {
           className: "my-theme",
         });
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         toast("Registration unsuccessful", {
           className: "my-theme",
         });
@@ -103,8 +103,7 @@ const Signup = () => {
           </p>
           <button
             type="submit"
-            className="submit-btn"
-            style={{ backgroundColor: "#FDDD5C" }}
+            className="signup-btn"
           >
             Register
           </button>

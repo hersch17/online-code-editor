@@ -53,6 +53,25 @@
     margin-top: 2rem;
     cursor: pointer;
   }
+  .signup-btn{
+    background-color: #FDDD5C;
+    width: 80%;
+    height: 60%;
+    max-height: 40px;
+    min-height: 30px;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: large;
+    margin-top: 2rem;
+    cursor: pointer;
+  }
+  .submit-btn:hover{
+    background-color: #3b91ed;
+  }
+  .signup-btn:hover{
+    background-color: orange;
+  }
   .login-form{
     display: flex;
     flex-direction: column;

@@ -1,9 +1,10 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 import CodeEditor from "./Pages/Editor";
 import Login from "./Pages/Login";
@@ -12,6 +13,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="/login" />}
+        />
         <Route
           path="/run"
           element={<CodeEditor />}

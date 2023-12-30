@@ -13,10 +13,6 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   console.log("email", email);
-  //   console.log("pass", pass);
-  // }, [email, pass]);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -35,10 +31,16 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        toast(err.response.data.message, {
-          className: "my-theme",
-        });
+        //console.log(err);
+        if (err?.response?.data?.message) {
+          toast(err.response.data.message, {
+            className: "my-theme",
+          });
+        } else if (err.code === "ERR_NETWORK") {
+          toast("Error connecting to server", {
+            className: "my-theme",
+          });
+        }
       });
   };
 

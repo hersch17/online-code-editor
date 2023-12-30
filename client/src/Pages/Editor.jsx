@@ -31,7 +31,7 @@ const CodeEditor = () => {
     useState(`#include<stdio.h>
 int main()
 {
-  printf("Hello world!);
+  printf("Hello world!");
   return 0;
 }`);
   const [language, setLanguage] = useState(
@@ -237,9 +237,6 @@ int main()
       navigate("/login");
     }
   }, []);
-  // useEffect(() => {
-  //   console.log("file id", fileID);
-  // }, [fileID]);
   function handleEditorChange(value, event) {
     setCode(value);
   }
