@@ -49,14 +49,14 @@ const Output = ({
       );
     }
   };
-  useEffect(() => {
-    console.log(
-      "output window",
-      status_id,
-      stdout,
-      stderr
-    );
-  }, [status_id, stderr, stdout]);
+  // useEffect(() => {
+  //   console.log(
+  //     "output window",
+  //     status_id,
+  //     stdout,
+  //     stderr
+  //   );
+  // }, [status_id, stderr, stdout]);
   return (
     <div className="output-window">
       <h4 className="heading">Output</h4>

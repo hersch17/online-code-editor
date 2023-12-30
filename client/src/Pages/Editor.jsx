@@ -27,15 +27,11 @@ import {
 import toast from "react-simple-toasts";
 
 const CodeEditor = () => {
-  const [code, setCode] =
-    useState(`#include<stdio.h>
-int main()
-{
-  printf("Hello world!");
-  return 0;
-}`);
+  const [code, setCode] = useState(
+    `console.log("Hello world!")`
+  );
   const [language, setLanguage] = useState(
-    langArray[0].id
+    langArray[7].id
   );
   const [input, setInput] = useState("");
   const [output, setOutput] = useState();
@@ -43,7 +39,7 @@ int main()
   const [email, setEmail] = useState("");
   const [fileID, setFileID] = useState();
   const [editorLanguage, setEditorLanguage] =
-    useState("cpp");
+    useState("javascript");
   const [processing, setProcessing] =
     useState(false);
   const navigate = useNavigate();
@@ -108,7 +104,7 @@ int main()
     axios
       .request(options)
       .then(function (response) {
-        console.log("res.data", response.data);
+        //console.log("res.data", response.data);
         const token = response.data.token;
         checkStatus(token);
       })
@@ -117,7 +113,7 @@ int main()
           ? err.response.data
           : err;
         setProcessing(false);
-        console.log(error);
+        //console.log(error);
         toast(`Processing error`, {
           className: "my-theme",
         });
@@ -156,18 +152,18 @@ int main()
         toast(`Compiled Successfully!`, {
           className: "my-theme",
         });
-        console.log(
-          "response.data",
-          response.data
-        );
-        console.log(
-          "output",
-          atob(response.data.stdout)
-        );
-        console.log(
-          "error",
-          atob(response.data.stderr)
-        );
+        // console.log(
+        //   "response.data",
+        //   response.data
+        // );
+        // console.log(
+        //   "output",
+        //   atob(response.data.stdout)
+        // );
+        // console.log(
+        //   "error",
+        //   atob(response.data.stderr)
+        // );
         return;
       }
     } catch (err) {

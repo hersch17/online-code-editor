@@ -2,7 +2,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import "../styles/topbar.css";
 import Async from "react-select/async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,9 +21,6 @@ const Topbar = ({
   email,
   setFileID,
 }) => {
-  // useEffect(() => {
-  //   console.log("file", selectedFile);
-  // }, [selectedFile]);
   const readFile = (file) => {
     const inputFileName =
       file?.name?.split(".")[0];
@@ -51,13 +48,9 @@ const Topbar = ({
   };
   const getAllCodes = async () => {
     return await axios
-      .post(
-        "http://localhost:8080/api/v1/run/codes",
-        { email: email }
-      )
+      .post("/run/codes", { email: email })
       .then((res) => {
         const result = res.data.job;
-        console.log(result);
         return result;
       })
       .catch((err) => console.log(err));
@@ -74,6 +67,31 @@ const Topbar = ({
       className: "my-theme",
     });
     navigate("/login");
+  };
+  const loadOptions = (searchValue, callback) => {
+    if (!searchValue) {
+      callback([]);
+    } else {
+      setTimeout(async () => {
+        await axios
+          .post("/run/codes", { email: email })
+          .then((res) => {
+            const result = res.data.job;
+            //console.log(result);
+            const filteredResult = result.filter(
+              (ele) => {
+                return ele.name
+                  .toLowerCase()
+                  .includes(
+                    searchValue.toLowerCase()
+                  );
+              }
+            );
+            callback(filteredResult);
+          })
+          .catch((err) => console.log(err));
+      }, 1000);
+    }
   };
   return (
     <nav className="navbar">
@@ -111,7 +129,7 @@ const Topbar = ({
         <div className="react-select">
           <Async
             // cacheOptions
-            loadOptions={getAllCodes}
+            loadOptions={loadOptions}
             onChange={(e) => {
               setFileID(e._id);
               setFileName(e.name);
