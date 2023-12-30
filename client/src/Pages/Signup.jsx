@@ -33,7 +33,12 @@ const Signup = () => {
           className: "my-theme",
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast("Registration unsuccessful", {
+          className: "my-theme",
+        });
+      });
   };
 
   return (
