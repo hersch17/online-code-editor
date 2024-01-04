@@ -46,6 +46,6 @@ pre{
         min-height: 200px;
     }
     .output-display{
-        height: 160px;
+        height:  100%;
     }
 }

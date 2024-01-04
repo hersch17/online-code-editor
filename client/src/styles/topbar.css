@@ -129,11 +129,12 @@ grid-row: 1 / 1;
     .file-input-container{
       grid-column: 1/2;
       align-self: center;
+      border: none;
       
     }
     .folder-open-icon{
       font-size: 20px;
-      margin-top: 6px
+      margin-top: 6px;
     }
     .save-button-container{
       grid-column: 5/6;
@@ -144,6 +145,7 @@ grid-row: 1 / 1;
       background-color: transparent;
       color: white;
       align-items: center;
+      border: none;
     }
     .save-button{
       padding: 0;

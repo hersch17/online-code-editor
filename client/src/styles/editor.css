@@ -145,6 +145,8 @@ padding: 0;
   .right{
     display: flex;
     flex-direction: column;
+    
+    margin-bottom: 1rem;
     /* border: 2px solid red; */
   }
   .monaco-editor{
