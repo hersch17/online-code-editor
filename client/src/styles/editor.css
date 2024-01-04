@@ -10,7 +10,7 @@ padding: 0;
   }
   
   .container{
-    height: 100dvh;
+    height: 100vh;
     /* background-color: #fffbf5;*/
     background-color: #F7EFE5;
     padding: 0rem 0.5rem 1rem 0rem;
@@ -87,7 +87,7 @@ padding: 0;
     grid-column: 2/3;
     width: 100%;
     max-width: 100%;
-    grid-template-rows: 40% 17% 20%;
+    grid-template-rows: minmax(auto, 40%) 17% 20%;
     box-sizing: border-box;
   }
   .code-input {
@@ -124,12 +124,32 @@ padding: 0;
   border-radius: 0.5rem;
   font-family: 'Poppins', sans-serif;
 }
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
+  .container{
+    height: 100%;
+    padding: 4rem 0rem 0rem 0rem;
+  }
   .main{
       display: flex;
       flex-direction: column;
       overflow-y: auto;
       align-items: center;
       width: 100%;
+  }
+  .code-editor{
+    padding: 0;
+    width: 95dvw;
+    height: calc(45vh + 3rem);
+    /* border: 2px solid red; */
+  }
+  .right{
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid red; */
+  }
+  .monaco-editor{
+    height: 45dvh;
+    width: 40vw;
+    /* border: 2px solid red; */
   }
 } 

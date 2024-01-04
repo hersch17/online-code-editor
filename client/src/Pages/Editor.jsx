@@ -335,6 +335,7 @@ const CodeEditor = () => {
           /> */}
           <div className="editor-container">
             <Editor
+              className="monaco-editor"
               height="80vh"
               width="100%"
               defaultLanguage="javascript"

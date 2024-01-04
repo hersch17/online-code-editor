@@ -21,7 +21,7 @@ const Login = () => {
         password: pass,
       })
       .then((result) => {
-        console.log(result);
+        //console.log(result);
         if (result.data.status === "success") {
           sessionStorage.setItem(
             "user_email",
@@ -58,7 +58,7 @@ const Login = () => {
             </label>
             <FontAwesomeIcon icon={faEnvelope} />
             <input
-              type="text"
+              type="email"
               placeholder="Email"
               autoComplete="off"
               name="email"

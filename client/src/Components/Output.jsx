@@ -28,23 +28,29 @@ const Output = ({
             whiteSpace: "pre-wrap",
           }}
         >
-          {decodeBase64(stdout)}
+          {atob(stdout) !== null
+            ? `${atob(stdout)}`
+            : null}
         </pre>
       );
-    } else if (status_id === 11) {
-      //run-time error
-      return (
-        <pre style={{ color: "red" }}>
-          {stdout
-            ? decodeBase64(stdout)
-            : decodeBase64(message)}
-        </pre>
-      );
-    } else if (status_id === 6) {
+    } else if (status_id === 5) {
       //compilation error
       return (
         <pre style={{ color: "red" }}>
+          Time Limit Exceeded
+        </pre>
+      );
+    } else if (status_id === 6) {
+      //run-time error
+      return (
+        <pre style={{ color: "red" }}>
           {decodeBase64(compile_output)}
+        </pre>
+      );
+    } else {
+      return (
+        <pre style={{ color: "red" }}>
+          {decodeBase64(stderr)}
         </pre>
       );
     }

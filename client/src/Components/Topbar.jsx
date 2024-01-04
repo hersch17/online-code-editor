@@ -98,16 +98,13 @@ const Topbar = ({
       <div className="navbar-container">
         <div className="file-input-container">
           <label className="file-icon-container">
-            {/* <span class="file-icon">📂</span> */}
-            {/* <span class="file-name">
-              Select a file
-            </span> */}
             <FontAwesomeIcon
               icon={faFolderOpen}
+              className="folder-open-icon"
             />
             <input
               type="file"
-              class="file-input"
+              className="file-input"
               onChange={(e) =>
                 readFile(e.target.files[0])
               }
@@ -119,9 +116,9 @@ const Topbar = ({
             className="save-button"
             onClick={() => handleSave()}
           >
-            {/* <span className="save-icon">💾</span> */}
             <FontAwesomeIcon
               icon={faFloppyDisk}
+              className="save-icon"
             />
             {/* Save */}
           </button>
